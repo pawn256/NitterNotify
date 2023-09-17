@@ -66,10 +66,9 @@ class NitterNotify:
             if len(tweetBody) <= 1: return ''
             body = tweetBody[1].select('.tweet-content.media-body')
         else:
-            if len(tweetBody) <= 0: return ''
             body = tweetBody[0].select('.tweet-content.media-body')
 
-        if len(body) == 0: return ''
+        if body == None or len(body) == 0: return ''
 
         bodyText = body[0].text
         if self.tweetBody != bodyText:
@@ -82,9 +81,17 @@ def main():
     userName = sys.argv[1]
     nitterNotify = NitterNotify(userName)
     while True:
-        nitterNotify.getPinnedTweet()
-        nitterNotify.getTweet()
-        time.sleep(60)
+        try:
+            nitterNotify.getPinnedTweet()
+        except Exception as e:
+            print("getPinnedTweet:", e)
+
+        try:
+            nitterNotify.getTweet()
+        except Exception as e:
+            print("getTweet:", e)
+
+        time.sleep(300)
 
 if __name__ == '__main__':
     main()
