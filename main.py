@@ -91,7 +91,7 @@ def main():
         except Exception as e:
             print("getTweet:", e)
 
-        time.sleep(300)
+        time.sleep(600)
 
 if __name__ == '__main__':
     main()
